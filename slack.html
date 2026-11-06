@@ -11,14 +11,16 @@
 </style>
 <main>
   <svg viewBox="0 0 64 64"><path d="M9 50 C17 50 17 30 25 30 C33 30 33 44 41 44 C49 44 49 18 58 17" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg>
-  <h1 id="h" style="font-weight:500;font-size:20px;margin:0 0 8px">Handing you back to Wisp…</h1>
-  <p id="p">If Wisp does not open, click <a id="l" href="#">open Wisp</a>.</p>
+  <h1 id="h" style="font-weight:500;font-size:20px;margin:0 0 8px">Signed in. One more click.</h1>
+  <p id="p">Safari only opens apps after a click.</p>
+  <p><a id="l" href="#" style="display:inline-block;margin-top:10px;padding:10px 18px;border-radius:12px;background:#A6EFD9;color:#12151C;font-weight:600;text-decoration:none">Open Wisp</a></p>
+  <p style="font-size:13px;margin-top:14px">If a dialog asks whether to allow this page to open Wisp, choose Allow. You can close this tab afterwards.</p>
 </main>
 <script>
   const q = location.search || '';
   const target = 'wisp://slack/callback' + q;
   document.getElementById('l').href = target;
   if (/[?&]error=/.test(q)) { document.getElementById('h').textContent = 'Slack sign-in was cancelled'; document.getElementById('p').textContent = 'You can close this tab and try again from Wisp.'; }
-  else if (/[?&]code=/.test(q)) { location.href = target; }
+  else if (/[?&]code=/.test(q)) { try { location.href = target; } catch (e) {} }
   else { document.getElementById('h').textContent = 'Wisp'; document.getElementById('p').textContent = 'This page only completes a Slack sign-in started from the Wisp app.'; }
 </script>
